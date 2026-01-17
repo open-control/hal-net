@@ -49,7 +49,7 @@
 #include <vector>
 
 #include <oc/core/Result.hpp>
-#include <oc/hal/IMessageTransport.hpp>
+#include <oc/hal/IFrameTransport.hpp>
 
 #ifdef _WIN32
     #ifndef WIN32_LEAN_AND_MEAN
@@ -84,7 +84,7 @@ struct UdpConfig {
 /**
  * @brief UDP-based frame transport for oc-bridge communication
  *
- * Implements IMessageTransport using UDP sockets. Designed for use with
+ * Implements IFrameTransport using UDP sockets. Designed for use with
  * oc-bridge in Virtual mode where each datagram is a complete frame.
  *
  * Features:
@@ -92,7 +92,7 @@ struct UdpConfig {
  * - No framing overhead (UDP datagrams are naturally delimited)
  * - Cross-platform (Windows/Linux/macOS)
  */
-class UdpTransport : public hal::IMessageTransport {
+class UdpTransport : public hal::IFrameTransport {
 public:
     UdpTransport();
     explicit UdpTransport(const UdpConfig& config);

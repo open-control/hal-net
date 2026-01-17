@@ -34,7 +34,7 @@ WebSocketTransport::~WebSocketTransport() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// IMessageTransport Implementation
+// IFrameTransport Implementation
 // ═══════════════════════════════════════════════════════════════════════════
 
 core::Result<void> WebSocketTransport::init() {

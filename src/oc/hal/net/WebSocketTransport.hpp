@@ -53,7 +53,7 @@
 #include <vector>
 
 #include <oc/core/Result.hpp>
-#include <oc/hal/IMessageTransport.hpp>
+#include <oc/hal/IFrameTransport.hpp>
 
 namespace oc::hal::net {
 
@@ -80,7 +80,7 @@ struct WebSocketConfig {
 /**
  * @brief WebSocket-based message transport for oc-bridge communication
  *
- * Implements IMessageTransport using Emscripten WebSocket API.
+ * Implements IFrameTransport using Emscripten WebSocket API.
  * Designed for use with oc-bridge in browser environments.
  *
  * Features:
@@ -89,7 +89,7 @@ struct WebSocketConfig {
  * - Async callbacks (event-driven, not polling)
  * - Binary message support
  */
-class WebSocketTransport : public hal::IMessageTransport {
+class WebSocketTransport : public hal::IFrameTransport {
 public:
     WebSocketTransport();
     explicit WebSocketTransport(const WebSocketConfig& config);
@@ -102,7 +102,7 @@ public:
     WebSocketTransport& operator=(WebSocketTransport&&) = delete;
 
     // ═══════════════════════════════════════════════════════════════════════
-    // IMessageTransport interface
+    // IFrameTransport interface
     // ═══════════════════════════════════════════════════════════════════════
 
     /**
