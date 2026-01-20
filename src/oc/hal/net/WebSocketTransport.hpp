@@ -52,8 +52,8 @@
 #include <string>
 #include <vector>
 
-#include <oc/core/Result.hpp>
-#include <oc/hal/IFrameTransport.hpp>
+#include <oc/types/Result.hpp>
+#include <oc/interface/ITransport.hpp>
 
 namespace oc::hal::net {
 
@@ -89,7 +89,7 @@ struct WebSocketConfig {
  * - Async callbacks (event-driven, not polling)
  * - Binary message support
  */
-class WebSocketTransport : public hal::IFrameTransport {
+class WebSocketTransport : public interface::ITransport {
 public:
     WebSocketTransport();
     explicit WebSocketTransport(const WebSocketConfig& config);
@@ -113,7 +113,7 @@ public:
      *
      * @return Result<void> - ok() on success, err() if WebSocket not supported
      */
-    core::Result<void> init() override;
+    oc::Result<void> init() override;
 
     /**
      * @brief Handle reconnection timing

@@ -37,15 +37,15 @@ WebSocketTransport::~WebSocketTransport() {
 // IFrameTransport Implementation
 // ═══════════════════════════════════════════════════════════════════════════
 
-core::Result<void> WebSocketTransport::init() {
+oc::Result<void> WebSocketTransport::init() {
     if (!emscripten_websocket_is_supported()) {
         OC_LOG_ERROR("[WebSocket] Not supported in this browser");
-        return core::Result<void>::err(core::ErrorCode::INVALID_STATE);
+        return oc::Result<void>::err(oc::ErrorCode::INVALID_STATE);
     }
 
     OC_LOG_INFO("[WebSocket] Connecting to {}", config_.url.c_str());
     connect();
-    return core::Result<void>::ok();
+    return oc::Result<void>::ok();
 }
 
 void WebSocketTransport::update() {

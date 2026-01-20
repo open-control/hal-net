@@ -48,8 +48,8 @@
 #include <string>
 #include <vector>
 
-#include <oc/core/Result.hpp>
-#include <oc/hal/IFrameTransport.hpp>
+#include <oc/types/Result.hpp>
+#include <oc/interface/ITransport.hpp>
 
 #ifdef _WIN32
     #ifndef WIN32_LEAN_AND_MEAN
@@ -92,7 +92,7 @@ struct UdpConfig {
  * - No framing overhead (UDP datagrams are naturally delimited)
  * - Cross-platform (Windows/Linux/macOS)
  */
-class UdpTransport : public hal::IFrameTransport {
+class UdpTransport : public interface::ITransport {
 public:
     UdpTransport();
     explicit UdpTransport(const UdpConfig& config);
@@ -114,7 +114,7 @@ public:
      *
      * @return Result<void> - ok() on success, err() on failure
      */
-    core::Result<void> init() override;
+    oc::Result<void> init() override;
 
     /**
      * @brief Poll for incoming frames
