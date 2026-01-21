@@ -48,7 +48,7 @@
 #include <string>
 #include <vector>
 
-#include <oc/types/Result.hpp>
+#include <oc/type/Result.hpp>
 #include <oc/interface/ITransport.hpp>
 
 #ifdef _WIN32
@@ -114,7 +114,7 @@ public:
      *
      * @return Result<void> - ok() on success, err() on failure
      */
-    oc::Result<void> init() override;
+    oc::type::Result<void> init() override;
 
     /**
      * @brief Poll for incoming frames

@@ -61,9 +61,9 @@ UdpTransport& UdpTransport::operator=(UdpTransport&& other) noexcept {
     return *this;
 }
 
-oc::Result<void> UdpTransport::init() {
+oc::type::Result<void> UdpTransport::init() {
     if (initialized_) {
-        return oc::Result<void>::ok();
+        return oc::type::Result<void>::ok();
     }
 
 #ifdef _WIN32
@@ -73,7 +73,7 @@ oc::Result<void> UdpTransport::init() {
         int result = WSAStartup(MAKEWORD(2, 2), &wsaData);
         if (result != 0) {
             OC_LOG_ERROR("UDP: WSAStartup failed: {}", result);
-            return oc::Result<void>::err(oc::ErrorCode::HARDWARE_INIT_FAILED);
+            return oc::type::Result<void>::err(oc::type::ErrorCode::HARDWARE_INIT_FAILED);
         }
         winsockInitialized_ = true;
     }
@@ -85,13 +85,13 @@ oc::Result<void> UdpTransport::init() {
     socket_ = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
     if (socket_ == INVALID_SOCKET) {
         OC_LOG_ERROR("UDP: Failed to create socket: {}", WSAGetLastError());
-        return oc::Result<void>::err(oc::ErrorCode::HARDWARE_INIT_FAILED);
+        return oc::type::Result<void>::err(oc::type::ErrorCode::HARDWARE_INIT_FAILED);
     }
 #else
     socket_ = socket(AF_INET, SOCK_DGRAM, 0);
     if (socket_ < 0) {
         OC_LOG_ERROR("UDP: Failed to create socket: {}", errno);
-        return oc::Result<void>::err(oc::ErrorCode::HARDWARE_INIT_FAILED);
+        return oc::type::Result<void>::err(oc::type::ErrorCode::HARDWARE_INIT_FAILED);
     }
 #endif
 
@@ -101,14 +101,14 @@ oc::Result<void> UdpTransport::init() {
     if (ioctlsocket(socket_, FIONBIO, &nonBlocking) != 0) {
         OC_LOG_ERROR("UDP: Failed to set non-blocking: {}", WSAGetLastError());
         cleanup();
-        return oc::Result<void>::err(oc::ErrorCode::HARDWARE_INIT_FAILED);
+        return oc::type::Result<void>::err(oc::type::ErrorCode::HARDWARE_INIT_FAILED);
     }
 #else
     int flags = fcntl(socket_, F_GETFL, 0);
     if (flags < 0 || fcntl(socket_, F_SETFL, flags | O_NONBLOCK) < 0) {
         OC_LOG_ERROR("UDP: Failed to set non-blocking: {}", errno);
         cleanup();
-        return oc::Result<void>::err(oc::ErrorCode::HARDWARE_INIT_FAILED);
+        return oc::type::Result<void>::err(oc::type::ErrorCode::HARDWARE_INIT_FAILED);
     }
 #endif
 
@@ -126,7 +126,7 @@ oc::Result<void> UdpTransport::init() {
         OC_LOG_ERROR("UDP: Bind failed: {}", errno);
 #endif
         cleanup();
-        return oc::Result<void>::err(oc::ErrorCode::HARDWARE_INIT_FAILED);
+        return oc::type::Result<void>::err(oc::type::ErrorCode::HARDWARE_INIT_FAILED);
     }
 
     // Setup destination address
@@ -142,7 +142,7 @@ oc::Result<void> UdpTransport::init() {
 
     initialized_ = true;
     OC_LOG_INFO("UDP: Initialized, target {}:{}", config_.host.c_str(), config_.port);
-    return oc::Result<void>::ok();
+    return oc::type::Result<void>::ok();
 }
 
 void UdpTransport::update() {

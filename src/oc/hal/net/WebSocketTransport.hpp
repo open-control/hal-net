@@ -52,7 +52,7 @@
 #include <string>
 #include <vector>
 
-#include <oc/types/Result.hpp>
+#include <oc/type/Result.hpp>
 #include <oc/interface/ITransport.hpp>
 
 namespace oc::hal::net {
@@ -113,7 +113,7 @@ public:
      *
      * @return Result<void> - ok() on success, err() if WebSocket not supported
      */
-    oc::Result<void> init() override;
+    oc::type::Result<void> init() override;
 
     /**
      * @brief Handle reconnection timing
